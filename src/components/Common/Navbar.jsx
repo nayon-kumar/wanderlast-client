@@ -12,7 +12,7 @@ const Navbar = () => {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <div className="sm:fixed bg-white border-2 top-4 left-4 right-4 z-50 sm:rounded-2xl shadow-lg">
+    <div className="fixed w-full sm:w-auto bg-white border-2 sm:top-4 sm:left-4 sm:right-4 z-50 sm:rounded-2xl shadow-lg">
       <nav className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between relative">
           {/* Logo - Left */}
@@ -80,7 +80,7 @@ const Navbar = () => {
                 Admin
               </Navlink>
 
-              <div className="pt-4 border-t-2 border-gray-300 flex flex-col gap-5">
+              <div className="pt-4 border-t border-gray-300 flex flex-col gap-5">
                 <Navlink
                   className="flex items-center gap-2"
                   href="/profile"
