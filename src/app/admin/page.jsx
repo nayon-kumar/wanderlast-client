@@ -9,15 +9,31 @@ import {
   TextArea,
   TextField,
   Select,
+  toast,
 } from "@heroui/react";
 import React from "react";
 
 const AdminPage = () => {
-  const onsubmit = (e) => {
+  const onsubmit = async (e) => {
     e.preventDefault();
+    const form = e.target;
     const formData = new FormData(e.target);
     const destination = Object.fromEntries(formData.entries());
-    console.log(destination);
+
+    const res = await fetch("http://localhost:8000/destination", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(destination),
+    });
+
+    const data = await res.json();
+    if (data.insertedId) {
+      toast.success(`${destination.destinationName} Added!`);
+      form.reset();
+    }
+    return data;
   };
 
   return (
