@@ -10,11 +10,13 @@ import {
   TextArea,
   TextField,
   Select,
+  toast,
 } from "@heroui/react";
 import { TbEdit } from "react-icons/tb";
 
 const EditModal = ({ destination }) => {
   const {
+    _id,
     destinationName,
     imageUrl,
     country,
@@ -24,9 +26,22 @@ const EditModal = ({ destination }) => {
     category,
     departureDate,
   } = destination;
-  const onsubmit = (e) => {
+  const onsubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitted!");
+    const formData = new FormData(e.target);
+    const editDestination = Object.fromEntries(formData.entries());
+    const res = await fetch(`http://localhost:8000/destination/${_id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(editDestination),
+    });
+    const data = await res.json();
+    if (data.modifiedCount > 0) {
+      toast.success("Destination Edited Successfully!");
+      window.location.reload();
+    }
   };
 
   return (
