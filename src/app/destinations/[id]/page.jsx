@@ -7,11 +7,15 @@ import React from "react";
 import { FaCheck } from "react-icons/fa";
 import { GoArrowLeft } from "react-icons/go";
 import { PiCalendarBold, PiMapPinLineLight } from "react-icons/pi";
+import { notFound } from "next/navigation";
 
 const DetailsPage = async ({ params }) => {
   const { id } = await params;
   const res = await fetch(`http://localhost:8000/destination/${id}`);
   const destination = await res.json();
+  if (!res.ok) {
+    notFound;
+  }
   const { destinationName, imageUrl, country, description, duration } =
     destination;
   return (
