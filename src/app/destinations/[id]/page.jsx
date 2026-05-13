@@ -5,6 +5,8 @@ import React from "react";
 import { FaCheck } from "react-icons/fa";
 import { GoArrowLeft } from "react-icons/go";
 import { PiCalendarBold, PiMapPinLineLight } from "react-icons/pi";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { TbEdit } from "react-icons/tb";
 
 const DetailsPage = async ({ params }) => {
   const { id } = await params;
@@ -14,15 +16,28 @@ const DetailsPage = async ({ params }) => {
     destination;
   return (
     <MyContainer className="pt-35 pb-20">
-      <div>
-        <Link
-          href="/destinations"
-          className="flex text-[#6C696D] gap-1 items-center"
-        >
-          <GoArrowLeft size={20} />
-          <span>Back to Destinations</span>
-        </Link>
+      <div className="flex items-center justify-between">
+        <div>
+          <Link
+            href="/destinations"
+            className="flex text-[#6C696D] gap-1 items-center"
+          >
+            <GoArrowLeft size={20} />
+            <span>Back to Destinations</span>
+          </Link>
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center text-[#0C0B0B] px-6 py-3 border border-[#B6B6B6] gap-2 cursor-pointer">
+            <TbEdit size={20} />
+            <span>Edit</span>
+          </div>
+          <div className="flex items-center text-[#EF4444] px-6 py-3 border border-[#EF4444] gap-2 cursor-pointer">
+            <RiDeleteBinLine size={20} />
+            <span>Cancel</span>
+          </div>
+        </div>
       </div>
+
       <div className="relative aspect-video mt-6">
         <Image src={imageUrl} alt={destinationName} fill />
       </div>
