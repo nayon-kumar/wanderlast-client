@@ -1,8 +1,24 @@
 "use client";
-import { AlertDialog, Button } from "@heroui/react";
+import { AlertDialog, Button, toast } from "@heroui/react";
+import { redirect } from "next/navigation";
 import { RiDeleteBinLine } from "react-icons/ri";
 
 const DeleteModal = ({ destination }) => {
+  const { _id, destinationName } = destination;
+  const handleClick = async (id) => {
+    const res = await fetch(`http://localhost:8000/destination/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
+    const data = await res.json();
+    if (data.deletedCount > 0) {
+      toast.danger(`${destinationName} Destination Deleted!`);
+      redirect("/destinations");
+    }
+  };
+
   return (
     <div>
       <AlertDialog>
@@ -27,7 +43,7 @@ const DeleteModal = ({ destination }) => {
                 <p>
                   This will permanently delete{" "}
                   <strong className="capitalize">
-                    {destination.destinationName} Destination
+                    {destinationName} Destination
                   </strong>{" "}
                   and all of its data. This action cannot be undone.
                 </p>
@@ -36,7 +52,11 @@ const DeleteModal = ({ destination }) => {
                 <Button slot="close" variant="tertiary">
                   Cancel
                 </Button>
-                <Button slot="close" variant="danger">
+                <Button
+                  onClick={() => handleClick(_id)}
+                  slot="close"
+                  variant="danger"
+                >
                   Confirm Delete
                 </Button>
               </AlertDialog.Footer>

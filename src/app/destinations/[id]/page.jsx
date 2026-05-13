@@ -7,7 +7,6 @@ import React from "react";
 import { FaCheck } from "react-icons/fa";
 import { GoArrowLeft } from "react-icons/go";
 import { PiCalendarBold, PiMapPinLineLight } from "react-icons/pi";
-import { RiDeleteBinLine } from "react-icons/ri";
 
 const DetailsPage = async ({ params }) => {
   const { id } = await params;
