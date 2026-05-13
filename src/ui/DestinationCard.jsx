@@ -5,10 +5,11 @@ import { MdOutlineArrowOutward } from "react-icons/md";
 import { PiCalendarBold, PiMapPinLineLight } from "react-icons/pi";
 
 const DestinationCard = ({ destination }) => {
-  const { imageUrl, country, destinationName, price, duration } = destination;
+  const { _id, imageUrl, country, destinationName, price, duration } =
+    destination;
   return (
     <div className="border border-gray-200 p-4 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 ease-in-out">
-      <Link href="/">
+      <Link href={`/destinations/${_id}`}>
         <div className="relative aspect-video">
           <Image
             src={imageUrl}
