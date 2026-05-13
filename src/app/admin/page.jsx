@@ -42,7 +42,7 @@ const AdminPage = () => {
         Add New Travel Package
       </h3>
       <div className="max-w-4xl mx-auto mt-5">
-        <form onSubmit={onsubmit} className="p-10 space-y-8">
+        <form onSubmit={onsubmit} className="sm:p-10 pt-10 md:pt-0 space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Destination Name */}
             <div className="md:col-span-2">
