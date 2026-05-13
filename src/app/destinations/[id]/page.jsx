@@ -1,4 +1,5 @@
 import MyContainer from "@/components/Common/MyContainer";
+import DeleteModal from "@/components/Destinations/DeleteModal";
 import EditModal from "@/components/Destinations/EditModal";
 import Image from "next/image";
 import Link from "next/link";
@@ -28,10 +29,7 @@ const DetailsPage = async ({ params }) => {
         </div>
         <div className="flex items-center gap-4">
           <EditModal destination={destination} />
-          <div className="flex items-center text-[#EF4444] px-6 py-2 border border-[#EF4444] gap-2 cursor-pointer">
-            <RiDeleteBinLine size={20} />
-            <span>Cancel</span>
-          </div>
+          <DeleteModal destination={destination} />
         </div>
       </div>
 
