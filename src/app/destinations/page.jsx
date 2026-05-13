@@ -4,7 +4,6 @@ import DestinationCard from "@/ui/DestinationCard";
 const destinationsPage = async () => {
   const res = await fetch("http://localhost:8000/destination");
   const destinations = await res.json();
-  console.log(destinations);
   return (
     <MyContainer className="pt-35 pb-20">
       <div className="text-center">
@@ -16,7 +15,7 @@ const destinationsPage = async () => {
         </p>
       </div>
       <div>Filter area</div>
-      <div>
+      <div className="grid grid-cols-3 gap-6 mt-11">
         {destinations.map((destination) => (
           <DestinationCard key={destination._id} destination={destination} />
         ))}
