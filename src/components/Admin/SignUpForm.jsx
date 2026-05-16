@@ -19,6 +19,13 @@ import { FcGoogle } from "react-icons/fc";
 
 export function SignUpForm() {
   const [isPending, setIsPending] = useState(false);
+
+  const handleGoogle = async () => {
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault();
     setIsPending(true);
@@ -119,7 +126,10 @@ export function SignUpForm() {
 
         <div className="flex-1 h-px bg-gray-300"></div>
       </div>
-      <Button className="w-full bg-white text-black rounded-md">
+      <Button
+        onClick={handleGoogle}
+        className="w-full bg-white text-black rounded-md"
+      >
         <FcGoogle />
         Continue with Google
       </Button>
