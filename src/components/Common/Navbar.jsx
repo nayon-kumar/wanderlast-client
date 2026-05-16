@@ -65,7 +65,7 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden mt-6 pt-6 border-t border-gray-200">
+          <div className="lg:hidden mt-6 mb-4 pt-6 border-t border-gray-200">
             <div className="flex flex-col gap-5 text-lg">
               <Navlink href="/" onClick={closeMenu}>
                 Home
