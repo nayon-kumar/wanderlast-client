@@ -2,7 +2,7 @@ import { SignUpForm } from "@/components/Admin/SignUpForm";
 import MyContainer from "@/components/Common/MyContainer";
 import React from "react";
 
-const SignUppPage = () => {
+const SignUpPage = () => {
   return (
     <MyContainer className="pt-35 pb-20">
       <div className="text-center">
@@ -20,4 +20,4 @@ const SignUppPage = () => {
   );
 };
 
-export default SignUppPage;
+export default SignUpPage;
