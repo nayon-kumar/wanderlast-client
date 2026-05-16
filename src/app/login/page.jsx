@@ -7,7 +7,7 @@ const page = () => {
     <MyContainer className="pt-35 pb-20">
       <div className="text-center">
         <h3 className="text-[#0C0B0B] text-2xl font-semibold md:text-4xl">
-          Login Your Account
+          Login Your Account Test
         </h3>
         <p className="mt-4 text-[#6C696D] ">
           Resume your adventure with Wanderlust
