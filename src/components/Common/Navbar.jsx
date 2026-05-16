@@ -129,12 +129,43 @@ const Navbar = () => {
                   <Person className="w-5 h-5" />
                   Profile
                 </Navlink>
-                <Navlink href="/login" onClick={closeMenu}>
-                  Login
-                </Navlink>
-                <Navlink href="/signup" onClick={closeMenu}>
-                  Sign Up
-                </Navlink>
+                {user ? (
+                  <>
+                    <Link
+                      onClick={closeMenu}
+                      className="flex items-center justify-center"
+                      href="/profile"
+                    >
+                      <Avatar>
+                        <Avatar.Image
+                          referrerPolicy="no-referrer"
+                          alt={user?.name}
+                          src={user?.image}
+                        />
+                        <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
+                      </Avatar>
+                    </Link>
+                    <Button
+                      className="w-full"
+                      onClick={async () => {
+                        await authClient.signOut();
+                        setSession(null);
+                      }}
+                      variant="danger"
+                    >
+                      Logout
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Navlink onClick={closeMenu} href="/login">
+                      Login
+                    </Navlink>
+                    <Navlink onClick={closeMenu} href="/signup">
+                      Sign Up
+                    </Navlink>
+                  </>
+                )}
               </div>
             </div>
           </div>
