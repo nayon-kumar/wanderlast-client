@@ -1,12 +1,26 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Navlink from "./Navlink";
 import { Person, Bars, Xmark } from "@gravity-ui/icons";
+import { authClient } from "@/lib/auth-client";
+import { Avatar, Button } from "@heroui/react";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [session, setSession] = useState(null);
+
+  useEffect(() => {
+    const loadSession = async () => {
+      const { data } = await authClient.getSession();
+      setSession(data);
+    };
+
+    loadSession();
+  }, []);
+
+  const user = session?.user;
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
@@ -44,8 +58,34 @@ const Navbar = () => {
                 <Person className="w-5 h-5" />
                 Profile
               </Navlink>
-              <Navlink href="/login">Login</Navlink>
-              <Navlink href="/signup">Sign Up</Navlink>
+              {user ? (
+                <>
+                  <Link href="/profile">
+                    <Avatar>
+                      <Avatar.Image
+                        referrerPolicy="no-referrer"
+                        alt={user?.name}
+                        src={user?.image}
+                      />
+                      <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
+                    </Avatar>
+                  </Link>
+                  <Button
+                    onClick={async () => {
+                      await authClient.signOut();
+                      setSession(null);
+                    }}
+                    variant="danger"
+                  >
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Navlink href="/login">Login</Navlink>
+                  <Navlink href="/signup">Sign Up</Navlink>
+                </>
+              )}
             </div>
 
             {/* Mobile Hamburger */}
