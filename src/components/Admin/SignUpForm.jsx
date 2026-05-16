@@ -8,28 +8,36 @@ import {
   Form,
   Input,
   Label,
+  Spinner,
   TextField,
   toast,
 } from "@heroui/react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 
 export function SignUpForm() {
+  const [isPending, setIsPending] = useState(false);
   const onSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const signUpData = Object.fromEntries(formData.entries());
+    setIsPending(true);
+    try {
+      const formData = new FormData(e.target);
+      const signUpData = Object.fromEntries(formData.entries());
 
-    const { data, error } = await authClient.signUp.email({
-      name: signUpData.name,
-      email: signUpData.email,
-      password: signUpData.password,
-      image: signUpData.image,
-    });
-    if (data) {
-      toast.success("Sign Up Successfully!");
-      redirect("/login");
+      const { data, error } = await authClient.signUp.email({
+        name: signUpData.name,
+        email: signUpData.email,
+        password: signUpData.password,
+        image: signUpData.image,
+      });
+      if (data) {
+        toast.success("Sign Up Successfully!");
+        redirect("/login");
+      }
+    } finally {
+      setIsPending(false);
     }
   };
 
@@ -90,8 +98,17 @@ export function SignUpForm() {
 
         <div className="flex gap-2">
           <Button type="submit" className="w-full">
-            <Check />
-            Create Account
+            {isPending ? (
+              <>
+                <Spinner color="current" size="sm" />
+                Creating Account...
+              </>
+            ) : (
+              <>
+                <Check />
+                Create Account
+              </>
+            )}
           </Button>
         </div>
       </Form>
