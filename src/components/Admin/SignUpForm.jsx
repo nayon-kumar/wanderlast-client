@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { Check } from "@gravity-ui/icons";
 import {
   Button,
@@ -8,13 +9,28 @@ import {
   Input,
   Label,
   TextField,
+  toast,
 } from "@heroui/react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 
 export function SignUpForm() {
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+    const formData = new FormData(e.target);
+    const signUpData = Object.fromEntries(formData.entries());
+
+    const { data, error } = await authClient.signUp.email({
+      name: signUpData.name,
+      email: signUpData.email,
+      password: signUpData.password,
+      image: signUpData.image,
+    });
+    if (data) {
+      toast.success("Sign Up Successfully!");
+      redirect("/login");
+    }
   };
 
   return (
@@ -93,7 +109,7 @@ export function SignUpForm() {
       <p className="text-center">
         Already have an account?{" "}
         <Link href="/login" className="text-[#15A1BF] font-semibold">
-          Log In
+          Login
         </Link>
       </p>
     </div>

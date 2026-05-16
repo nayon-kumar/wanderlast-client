@@ -64,7 +64,7 @@ export function LoginForm() {
         <div className="flex gap-2">
           <Button type="submit" className="w-full">
             <Check />
-            Create Account
+            Login
           </Button>
         </div>
       </Form>
