@@ -8,27 +8,35 @@ import {
   Form,
   Input,
   Label,
+  Spinner,
   TextField,
 } from "@heroui/react";
 import Link from "next/link";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 
 export function LoginForm() {
+  const [isPending, setIsPending] = useState(false);
   const onSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const loginData = Object.fromEntries(formData.entries());
-    const { data, error } = await authClient.signIn.email({
-      email: loginData.email,
-      password: loginData.password,
-      rememberMe: true,
-      callbackURL: "/",
-    });
-    if (data) {
-      toast.success("Login Successfully!");
-    } else {
-      toast.error(`${error.message}`);
+    setIsPending(true);
+    try {
+      const formData = new FormData(e.target);
+      const loginData = Object.fromEntries(formData.entries());
+      const { data, error } = await authClient.signIn.email({
+        email: loginData.email,
+        password: loginData.password,
+        rememberMe: true,
+        callbackURL: "/",
+      });
+      if (data) {
+        toast.success("Login Successfully!");
+      } else {
+        toast.error(`${error.message}`);
+      }
+    } finally {
+      setIsPending(false);
     }
   };
 
@@ -78,8 +86,17 @@ export function LoginForm() {
 
         <div className="flex gap-2">
           <Button type="submit" className="w-full">
-            <Check />
-            Login
+            {isPending ? (
+              <>
+                <Spinner color="current" size="sm" />
+                Logging in...
+              </>
+            ) : (
+              <>
+                <Check />
+                Login
+              </>
+            )}
           </Button>
         </div>
       </Form>
