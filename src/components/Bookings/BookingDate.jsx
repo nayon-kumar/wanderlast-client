@@ -35,9 +35,9 @@ export function BookingDate({ destination }) {
 
       const userInputDate = new Date(value);
       const bookingData = {
-        userID: user.id,
-        userImage: user.image,
-        userName: user.name,
+        userID: user?.id,
+        userImage: user?.image,
+        userName: user?.name,
         destinationID: _id,
         destinationName,
         price,
