@@ -2,6 +2,8 @@ import { BookingDate } from "@/components/Bookings/BookingDate";
 import MyContainer from "@/components/Common/MyContainer";
 import DeleteModal from "@/components/Destinations/DeleteModal";
 import EditModal from "@/components/Destinations/EditModal";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -11,7 +13,15 @@ import { PiCalendarBold, PiMapPinLineLight } from "react-icons/pi";
 
 const DetailsPage = async ({ params }) => {
   const { id } = await params;
-  const res = await fetch(`http://localhost:8000/destination/${id}`);
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+  console.log(token);
+  const res = await fetch(`http://localhost:8000/destination/${id}`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
   const destination = await res.json();
 
   const { destinationName, imageUrl, country, description, duration, price } =
