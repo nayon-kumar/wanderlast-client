@@ -5,6 +5,8 @@ import { FaRegCheckCircle } from "react-icons/fa";
 import { IoMdEye } from "react-icons/io";
 import { PiCalendarBold, PiMapPinLineLight } from "react-icons/pi";
 import { RiDeleteBinLine } from "react-icons/ri";
+import { CancelAlert } from "./CancelAlert";
+import Link from "next/link";
 
 const BookingCard = ({ booking }) => {
   return (
@@ -63,18 +65,14 @@ const BookingCard = ({ booking }) => {
 
         {/* Right actions */}
         <div className="flex flex-row lg:flex-col gap-3 w-full lg:w-auto">
-          <Button className="w-full lg:w-auto flex items-center justify-center gap-2">
-            <IoMdEye size={18} />
-            View
-          </Button>
+          <Link href={`/destinations/${booking.destinationID}`}>
+            <Button className="flex items-center justify-center gap-2">
+              <IoMdEye size={18} />
+              View
+            </Button>
+          </Link>
 
-          <Button
-            variant="danger"
-            className="w-full lg:w-auto flex items-center justify-center gap-2"
-          >
-            <RiDeleteBinLine size={18} />
-            Cancel
-          </Button>
+          <CancelAlert booking={booking} />
         </div>
       </div>
     </div>
