@@ -1,5 +1,6 @@
 "use client";
 import MyContainer from "@/components/Common/MyContainer";
+import { authClient } from "@/lib/auth-client";
 import {
   Button,
   FieldError,
@@ -20,10 +21,12 @@ const AdminPage = () => {
     const formData = new FormData(e.target);
     const destination = Object.fromEntries(formData.entries());
 
+    const { data: tokenData } = await authClient.token();
     const res = await fetch("http://localhost:8000/destination", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${tokenData?.token}`,
       },
       body: JSON.stringify(destination),
     });
